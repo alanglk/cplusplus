@@ -8,4 +8,5 @@ Repository to follow a C++ tutorial.
 
 - [PPM Image Format Specification](https://netpbm.sourceforge.net/doc/ppm.html)
 - [Ray Tracing in one weekend](https://raytracing.github.io/books/RayTracingInOneWeekend.html)
+- [Arrays, Pointers and Loops in C++](https://learnmoderncpp.com/arrays-pointers-and-loops/)
 

@@ -27,7 +27,10 @@ class Image {
         # comment line -- whatever you want // Just a comment line
         100 200                             // Width and Height
         255                                 // Maximun value/intensity of each channel
-        10 20 30 2 240 20...                // data
+        10 20 30 2 240 20...                // data*
+    
+    *The data could be separated with newlines for each width image size or just 
+        a single line of all pixels 
     */
 
     public:

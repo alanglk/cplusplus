@@ -4,7 +4,7 @@
         {
             "label": "Build Main",
             "type": "shell",
-            "command": " g++ -v -g src/main.cpp -o build/main.out",
+            "command": "g++ -v -I . -g src/main.cpp -o build/main.out",
             "group": "build"
         },
         {
@@ -13,10 +13,12 @@
             "command": "/usr/bin/g++",
             "args": [
                 "-fdiagnostics-color=always",
+                "-I",
+                "${workspaceFolder}",
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${workspaceFolder}/build/${fileBasenameNoExtension}"
             ],
             "options": {
                 "cwd": "${fileDirname}"

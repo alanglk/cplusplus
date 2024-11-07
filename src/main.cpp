@@ -19,7 +19,7 @@ class Persona {
         }
 };
 
-void testing(){
+void test1(){
     char str[] = "Hola buenos dias!";
     std::cout.write(str, sizeof str) << "\n";
 
@@ -49,9 +49,7 @@ void testing(){
 
 }
 
-
-
-int main(){
+void test2(){
     //Image img = Image("./out.ppm");
     Pixel p1 = {0};
     Pixel pixels[] = {Pixel(), Pixel(), Pixel()};
@@ -84,6 +82,20 @@ int main(){
     file.seekp(0);
     file << datos;
     file.close();
+}
 
+int main(){
+    uint width  = 100;
+    uint height = 100;
+    uint pixel_number = width * height;
+    Image img = {"images/image.ppm", width, height};
+    
+    Pixel color = {255, 0, 0};
+    Pixel canvas[pixel_number]; 
+    clear_canvas(canvas, pixel_number, color);
+
+    img.writePixelsToFile(canvas, pixel_number);
+    img.close();
     return 0;
-}   
+}
+

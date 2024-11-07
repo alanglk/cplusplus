@@ -2,12 +2,6 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build Main",
-            "type": "shell",
-            "command": "g++ -v -I . -g src/main.cpp -o build/main.out",
-            "group": "build"
-        },
-        {
             "type": "cppbuild",
             "label": "C/C++: g++ compilar archivo activo",
             "command": "/usr/bin/g++",
@@ -18,10 +12,10 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${workspaceFolder}/build/${fileBasenameNoExtension}"
+                "${workspaceFolder}/build/${fileBasenameNoExtension}.out"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}"
             },
             "problemMatcher": [
                 "$gcc"

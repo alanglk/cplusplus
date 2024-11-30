@@ -4,12 +4,17 @@
 #include <iostream>
 #include <fstream>
 
-struct Pixel
-{
-    uint8_t r;
-    uint8_t g;
-    uint8_t b;
+struct Pixel{
+    uint r;
+    uint g;
+    uint b;
 };
+
+// Sobrecarga de << para un pixel
+std::ostream& operator<<(std::ostream& out, const Pixel& pixel) {
+    out << "(" << pixel.r << ", " << pixel.g << ", " << pixel.b << ")";
+    return out;
+}
 
 Pixel* clear_canvas(Pixel *canvas, uint pixel_number, Pixel color = {0, 0, 0}){
     for(uint i = 0; i < pixel_number; i++){
@@ -63,14 +68,10 @@ class Image {
         }
 
         int writePixelsToFile(Pixel* pixels, size_t n){
-            //char = pixel.r; 
-            //this->file.write(, sizeof(pixel));
             for (size_t i = 0; i < n; i++){
                 Pixel p = pixels[i];
-                char result[64]; 
-                sprintf(result, "%d %d %d ", p.r, p.g, p.b);
-                this->file << result;
-                std::cout << "pixels [" << i << "]: " << " *pixels: " << result << std::endl;
+                this->file << p.r << ' ' << p.g << ' ' << p.b << '\n';
+                // std::cout << "pixels [" << i << "]: " << " *pixels: " << result << std::endl;
             }
             return 0;
         }

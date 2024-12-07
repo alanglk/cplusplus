@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <math.h>
-#include <include/image.hpp>
+#include "image.hpp"
 
 class vec3{
     
@@ -92,10 +92,9 @@ class vec3{
 
         // Transform vec3 to Pixel if possible
         const Pixel to_pixel(){
-            if ( this->x() < 0 || this->x() > 255 || this->y() < 0 || this->y() > 255 || this->z() < 0 || this->z() > 255 ){
-                    return {0, 0, 0};
-                }
-            Pixel p =  { (uint)(*this)[0], (uint)(*this)[1], (uint)(*this)[2] };
+            vec3 v = (*this) / this->norm();
+            v *= 255.999;
+            Pixel p =  { (uint)v[0], (uint)v[1], (uint)v[2] };
             return p;
         }
 

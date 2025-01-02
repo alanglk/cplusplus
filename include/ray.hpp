@@ -26,6 +26,10 @@ class ray{
         return this->dir;
     }
 
+    vec3 at(double t) const{
+        return this->orig + this->dir * t;    
+    }
+
 };
 
 #endif

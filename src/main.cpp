@@ -3,24 +3,30 @@
 #include "include/image.hpp"
 #include "include/vec3.hpp"
 #include "include/ray.hpp"
+#include "include/sphere.hpp"
 
 // #include "./src/tests.cpp"
 
-
 using namespace std;
 
-
 Pixel ray_color(const ray& r){
-    // Lerp between 0.0 and 1.0 for the ray direction height (y)
-    // vec3 unit_direction = unit_vector(r.direction());   // [-1.0, 1.0]
-    // auto a = unit_direction.z(); // 0.5*(unit_direction.y() + 1.0);            // [0.0, 1.0]
-    // vec3 color = (1.0-a)*vec3(1.0, 1.0, 1.0) + a*vec3(0.5, 0.7, 1.0);
-    vec3 direction = r.direction();
-    Pixel color = {0, 0, 0}; 
     
-    if (direction.x() >= 0.0) { color = {255, 0, 0}; }
-    return color;
+    // Check if the ray hits with the sphere
+    Sphere test_sphere = {vec3(0, 0, 1), 0.5};
+    HitRecord rec;
+
+    if(test_sphere.hit(r, 0.0, 100.0, rec)){
+        vec3 color = 0.5*vec3(rec.normal.x()+1, rec.normal.y()+1, rec.normal.z()+1);
+        return color.to_pixel();
+    }
+    
+    // Lerp between 0.0 and 1.0 for the ray direction height (y)
+    vec3 unit_direction = unit_vector(r.direction());   // [-1.0, 1.0]
+    auto a = 0.5*(unit_direction.y() + 1.0);            // [0.0, 1.0]
+    vec3 color = (1.0-a)*vec3(1.0, 1.0, 1.0) + a*vec3(0.5, 0.7, 1.0);
+    return color.to_pixel();
 }
+
 
 int main(){
 
@@ -32,7 +38,9 @@ int main(){
 
     Pixel canvas[canvas_length];
     clear_canvas(canvas, canvas_length, {0, 0, 0});
-
+    
+    // World
+    // Sphere test_sphere = {vec3(0, 0, 1), 0.5};
 
     // Camera
     vec3 camera_position    = {0, 0, 0};
@@ -52,12 +60,12 @@ int main(){
             // v *= 255.999;
             
             // compute ray
-            auto pixel_center = viewport00 + (i * delta_u); //+ (j * delta_v);
+            auto pixel_center = viewport00 + (i * delta_u) + (j * delta_v);
             auto ray_direction = pixel_center - camera_position;
             ray r(camera_position, ray_direction);
 
             // Retrieve ray color
-            canvas[ i * image_height + j] = ray_color(r);
+            canvas[ j * image_width + i] = ray_color(r);
         }
     }
     clog << "\rDone :D                 \n";

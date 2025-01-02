@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <filesystem>
 
 struct Pixel{
     uint r;
@@ -45,14 +46,18 @@ class Image {
         const char* format;     // Format of the image file
         const char* info;       // Relevant info
 
-        std::fstream file;
+        std::ofstream file;
 
         // Constructor
         Image(std::string path, uint width, uint height, const char* format = "P3", const char* info = "Example Image") : 
                 path{path},  width{width}, height{height}, format{format}, info{info}  {
-            this->file.open(this->path, std::ios_base::out);
+            
+            this->file.open(this->path, std::ios::trunc);
             if (!this->file.is_open()){
                 std::cerr << "[IMAGE]   Error. Could not create image file " << this->path << std::endl;
+            }else{
+                std::cout << "[IMAGE]   Image opened on path:  " << this->path << std::endl;
+
             }
 
             this->file.seekp(0); // Start writing at the start

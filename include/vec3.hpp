@@ -92,7 +92,7 @@ class vec3{
 
         // Transform vec3 to Pixel if possible
         const Pixel to_pixel(){
-            vec3 v = (*this) / this->norm();
+            vec3 v = (*this) ; // / this->norm();
             v *= 255.999;
             Pixel p =  { (uint)v[0], (uint)v[1], (uint)v[2] };
             return p;
@@ -114,7 +114,7 @@ inline vec3 operator/(const double t, vec3 v){
 }
 
 inline double dot(const vec3& u, const vec3& v){
-    return u[0] * v[0], u[1] * v[1], u[2] * v[2];
+    return u[0] * v[0] + u[1] * v[1] + u[2] * v[2];
 }
 
 inline vec3 cross(const vec3& u, const vec3& v){
